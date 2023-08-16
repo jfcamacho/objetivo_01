@@ -1,0 +1,6 @@
+{
+    "SEED": {
+        "PrivateKey": "HOLA MUNDO",
+        "ExpiresIn": "30m"
+    }
+}

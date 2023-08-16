@@ -1,8 +1,9 @@
 const Express = require('express')
 const Estado = Express.Router()
 const EstadoModel = require('../models').Estado
+const autenticar = require('../middlewares/Autenticar')
 
-Estado.get('/', (req, res) => {
+Estado.get('/', autenticar, (req, res) => {
     EstadoModel.findAll()
     .then((result) => {
         res.status(200).json(result)
@@ -11,7 +12,7 @@ Estado.get('/', (req, res) => {
     });
 })
 
-Estado.post('/', (req, res) => {
+Estado.post('/', autenticar, (req, res) => {
     EstadoModel.create(req.body)
     .then((result) => {
         if(result){
@@ -22,7 +23,7 @@ Estado.post('/', (req, res) => {
     });
 })
 
-Estado.put('/:idEstado', (req, res) => {
+Estado.put('/:idEstado', autenticar, (req, res) => {
     EstadoModel.update( req.body, {
         where: {id: req.params.idEstado}
     })
@@ -35,7 +36,7 @@ Estado.put('/:idEstado', (req, res) => {
     });
 })
 
-Estado.delete('/:idEstado', (req, res) => {
+Estado.delete('/:idEstado', autenticar, (req, res) => {
     EstadoModel.destroy({
         where: {'id': req.params.idEstado}
     })
