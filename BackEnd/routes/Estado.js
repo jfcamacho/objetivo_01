@@ -11,4 +11,41 @@ Estado.get('/', (req, res) => {
     });
 })
 
+Estado.post('/', (req, res) => {
+    EstadoModel.create(req.body)
+    .then((result) => {
+        if(result){
+            res.status(200).json({'Estado': req.body.abreviatura, 'Msj': 'Ha sido correctamente creado'})
+        }
+    }).catch((err) => {
+        res.status(404).json({'Error': err})
+    });
+})
+
+Estado.put('/:idEstado', (req, res) => {
+    EstadoModel.update( req.body, {
+        where: {id: req.params.idEstado}
+    })
+    .then((result) => {
+        if(result){
+            res.status(200).json({'Estado': req.params.idEstado, 'Msj': 'El estado ha sido correctamente actualizado'})
+        }
+    }).catch((err) => {
+        res.status(404).json({'Eror': err})
+    });
+})
+
+Estado.delete('/:idEstado', (req, res) => {
+    EstadoModel.destroy({
+        where: {'id': req.params.idEstado}
+    })
+    .then((result) => {
+        if(result){
+            res.status(200).json({'Estado': req.params.idEstado, 'Msj': 'El estado ha sido correctamente eliminado'})
+        }
+    }).catch((err) => {
+        res.status(404).json({'Eror': err})
+    });
+})
+
 module.exports = Estado
